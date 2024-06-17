@@ -1,0 +1,5 @@
+GET http://localhost:8080/fetch-temperature?zipcode=27213050
+
+###
+
+GET http://api.weatherapi.com/v1/current.json?key=fc7e61344b624b8c87601845241706&q=Volta Redonda&aqi=no
