@@ -52,7 +52,7 @@ func FetchZipCode(w http.ResponseWriter, r *http.Request) {
 
 	output, err := FetchLocationTemperature(address.Localidade)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(output)
@@ -75,6 +75,10 @@ func FetchLocationTemperature(location string) (*Output, error) {
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("can not find zipcode ")
 	}
 
 	// Decode the response body into a struct
